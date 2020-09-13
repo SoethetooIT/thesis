@@ -1,0 +1,90 @@
+<?php
+require_once "db_connection.php";
+if (isset($_GET['detail'])) {
+	$id = $_GET['detail'];
+
+	$query   = "SELECT * FROM teacher WHERE id=$id";
+	$teacher = mysqli_query($connect, $query);
+	foreach ($teacher as $techal) {
+		$name = $techal['name'];
+	}
+
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>View</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	<div class="jumbotron">
+			<h1 class="text-center">Performance Detail of <?php echo $name?></h1>
+	<table class="table table-bordered table-info">
+		<tr>
+			<th>No</th>
+			<th class="text-center">Question</th>
+			<th>Score</th>
+		</tr>
+<?php
+$no      = 1;
+$query   = "SELECT * FROM teacher WHERE id=$id";
+$teacher = mysqli_query($connect, $query);
+foreach ($teacher as $score) {
+	?>
+		<tr>
+			<td>1</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question1']?></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question2']?></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question3']?></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question4']?></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question5']?></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question6']?></td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>Teacher provided the course outline having weekly content plan with list of required text book:</td>
+			<td class="text-center"><?php echo $score['question7']?></td>
+		</tr>
+
+	<tr>
+
+			<td colspan="2" class="text-center">Total Score</td>
+			<td class="text-center"><?php echo $score['total']?></td>
+		</tr>
+
+	<?php
+}
+?>
+</table>
+</div>
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</html>

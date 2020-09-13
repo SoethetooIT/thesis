@@ -1,0 +1,45 @@
+<?php
+require_once "db_connection.php";
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>View</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+	<div class="jumbotron">
+			<h1 class="text-center">Overall Performance Ranking Table</h1>
+			<table class="table table-hover table-info">
+				<tr>
+					<th>No</th>
+					<th>Name</th>
+					<th>Score</th>
+				</tr>
+<?php
+$no      = 1;
+$query   = "SELECT * FROM teacher ORDER BY total DESC";
+$teacher = mysqli_query($connect, $query);
+foreach ($teacher as $teachal) {
+	?>
+		<tr>
+			<td><?php echo $no++?></td>
+			<td><a href="detail.php?detail=<?php echo $teachal['id']?>"> <?php echo $teachal['name']?></a></td>
+			<td><?php echo $teachal['total']?></td>
+		</tr>
+	<?php
+}
+?>
+			</table>
+
+</div>
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,178 @@
+<?php
+require_once "db_connection.php";
+if (isset($_POST['submit'])) {
+	$id = $_POST['teacher'];
+
+	$Q1 = $_POST['Q1'];
+	$Q2 = $_POST['Q2'];
+	$Q3 = $_POST['Q3'];
+	$Q4 = $_POST['Q4'];
+	$Q5 = $_POST['Q5'];
+	$Q6 = $_POST['Q6'];
+	$Q7 = $_POST['Q7'];
+
+	$query = "SELECT * FROM teacher WHERE id = $id";
+	$data  = mysqli_query($connect, $query);
+	foreach ($data as $score) {
+
+		$old_Q1 = $score['question1'];
+		$old_Q2 = $score['question2'];
+		$old_Q3 = $score['question3'];
+		$old_Q4 = $score['question4'];
+		$old_Q5 = $score['question5'];
+		$old_Q6 = $score['question6'];
+		$old_Q7 = $score['question7'];
+
+		$new_Q1    = $old_Q1+$Q1;
+		$new_Q2    = $old_Q2+$Q2;
+		$new_Q3    = $old_Q3+$Q3;
+		$new_Q4    = $old_Q4+$Q4;
+		$new_Q5    = $old_Q5+$Q5;
+		$new_Q6    = $old_Q6+$Q6;
+		$new_Q7    = $old_Q7+$Q7;
+		$new_total = $new_Q1+$new_Q2+$new_Q3+$new_Q4+$new_Q5+$new_Q6+$new_Q7;
+
+		$query = "UPDATE `teacher` SET `question1`='$new_Q1',`question2`='$new_Q2',`question3`='$new_Q3',`question4`='$new_Q4',`question5`='$new_Q5',`question6`='$new_Q6',`question7`='$new_Q7',`total`='$new_total' WHERE id=$id ";
+		mysqli_query($connect, $query);
+
+	}
+
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FeedBack Form</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	<div class="jumbotron">
+			<h1 class="text-center">Feedback Form</h1>
+		<form action=" " method="post" enctype="multipart/form-data">
+			<div class="form-group col-md-4">
+
+				Select Teacher
+				<select name="teacher" id="" class="form-control">
+<?php
+$query   = "SELECT * FROM teacher";
+$teacher = mysqli_query($connect, $query);
+foreach ($teacher as $teachal) {
+	?>
+						<option value="<?php echo $teachal['id']?>"><?php echo $teachal['name']?></option>
+	<?php
+}
+?>
+
+        </select>
+			</div>
+
+			<table class="table table-hover table-bordered table-info">
+				<tr>
+					<td colspan="3" class="text-center">
+						<button type="button" style="background-color:green;color: white">Strongly Agree = 5</button>
+						<button type="button" style="background-color:blue;color: white"> Agree = 4</button>
+						<button type="button" style="background-color:gray;color:white">Neutral =3</button>
+						<button type="button" style="background-color:yellow;color: gray">Disagree =2</button>
+						<button type="button" style="background-color:red;color: white">Strongly Disagree =1</button>
+					</td>
+				</tr>
+
+				<tr>
+					<th>No</th>
+					<th>Question</th>
+					<th>Rate</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="15">5</label><input type='radio' name="Q1" value='5' id="15">
+						<label for="14">4</label><input type='radio' name="Q1" value='4' id="14">
+						<label for="13">3</label><input type='radio' name="Q1" value='3' id="13">
+						<label for="12">2</label><input type='radio' name="Q1" value='2' id="12">
+						<label for="11">1</label><input type='radio' name="Q1" value='1' id="11">
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="25">5</label><input type='radio' name="Q2" value='5' id="25">
+						<label for="24">4</label><input type='radio' name="Q2" value='4' id="24">
+						<label for="23">3</label><input type='radio' name="Q2" value='3' id="23">
+						<label for="22">2</label><input type='radio' name="Q2" value='2' id="22">
+						<label for="21">1</label><input type='radio' name="Q2" value='1' id="21">
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="35">5</label><input type='radio' name="Q3" value='5' id="35">
+						<label for="34">4</label><input type='radio' name="Q3" value='4' id="34">
+						<label for="33">3</label><input type='radio' name="Q3" value='3' id="33">
+						<label for="32">2</label><input type='radio' name="Q3" value='2' id="32">
+						<label for="31">1</label><input type='radio' name="Q3" value='1' id="31">
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="45">5</label><input type='radio' name="Q4" value='5' id="45">
+						<label for="44">4</label><input type='radio' name="Q4" value='4' id="44">
+						<label for="43">3</label><input type='radio' name="Q4" value='3' id="43">
+						<label for="42">2</label><input type='radio' name="Q4" value='2' id="42">
+						<label for="41">1</label><input type='radio' name="Q4" value='1' id="41">
+					</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="55">5</label><input type='radio' name="Q5" value='5' id="55">
+						<label for="54">4</label><input type='radio' name="Q5" value='4' id="54">
+						<label for="53">3</label><input type='radio' name="Q5" value='3' id="53">
+						<label for="52">2</label><input type='radio' name="Q5" value='2' id="52">
+						<label for="51">1</label><input type='radio' name="Q5" value='1' id="51">
+					</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="65">5</label><input type='radio' name="Q6" value='5' id="65">
+						<label for="64">4</label><input type='radio' name="Q6" value='4' id="64">
+						<label for="63">3</label><input type='radio' name="Q6" value='3' id="63">
+						<label for="62">2</label><input type='radio' name="Q6" value='2' id="62">
+						<label for="61">1</label><input type='radio' name="Q6" value='1' id="61">
+					</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td><p> Teacher provided the course outline having weekly content plan with list of required text book:</p></td>
+					<td>
+						<label for="75">5</label><input type='radio' name="Q7" value='5' id="75">
+						<label for="74">4</label><input type='radio' name="Q7" value='4' id="74">
+						<label for="73">3</label><input type='radio' name="Q7" value='3' id="73">
+						<label for="72">2</label><input type='radio' name="Q7" value='2' id="72">
+						<label for="71">1</label><input type='radio' name="Q7" value='1' id="71">
+					</td>
+				</tr>
+
+			</table>
+			<input type="submit" name="submit" value="Submit" class="btn btn-primary">
+		</form>
+
+</div>
+</div>
+
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</html>
